@@ -1,6 +1,8 @@
 #include <iostream>
 #include "src/gps.h"
 
+using namespace std;
+
 int main(void) {
     int dir = direction(0, 0, 1, 2);
     cout << dir << endl;
