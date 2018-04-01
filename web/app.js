@@ -33,8 +33,8 @@ function get_venues(lat, lon, query) {
                 reject(err);
             } else {
                 const result = JSON.parse(body);
-                console.log(result);
-                console.log(JSON.stringify(result.response.groups[0].items, null, 2));
+              //console.log(result);
+              //console.log(JSON.stringify(result.response.groups[0].items, null, 2));
                 resolve(result.response.groups[0].items);
             }
         });
@@ -53,7 +53,7 @@ app.use(async ctx => {
     console.log(p)
     console.log(p.lat, p.lon);
 
-    const items = await get_venues();
+    const items = await get_venues(p.lat, p.lon, p.query);
     const venue = items[0].venue;
 
     ctx.body = items.map(e => {
