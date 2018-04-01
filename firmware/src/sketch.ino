@@ -8,6 +8,7 @@
 
 #define DATA_PIN 5
 #define NUM_LEDS 51
+CRGB leds[NUM_LEDS];
 
 #include "gps.h"
 
@@ -22,6 +23,8 @@ const int   port = 4848;
 double lat, lon;
 
 void setup() {
+    FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
+
     Serial.begin(9600);
     Serial.println();
     Serial.print("connecting to ");
@@ -90,16 +93,25 @@ void get_coords() {
 }
 
 void loop() {
+  double dir = 0;
   float flat, flon;
   unsigned long age;
+  double offset = 245; // LED 0 is not at front of skateboard
   
   gps.f_get_position(&flat, &flon, &age);
   Serial.println(flat);
   Serial.println(flon);
 
-  double dir = direction(lat, lon, flat, flon);
-  Serial.print("direction: ");
-  Serial.println(dir);
+  if (flat == 1000) {
+      // loading
+      updateLEDs(dir+offset,100);
+      dir+=10;
+  } else {
+      dir = direction(lat, lon, flat, flon);
+      Serial.print("direction: ");
+      Serial.println(dir);
+      updateLEDs(dir, 1000);
+  }
 
   smartdelay(1000);
 }
@@ -128,4 +140,37 @@ String getValue(String data, char separator, int index)
         }
     }
     return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
+}
+
+void updateLEDs(double dir, double dist) {
+    // 0th LED is is front of skateboard
+    dir = (dir >=0 && dir <= 360) ? dir : ((int) dir) % 360; // make sure dir is in range [0,360]
+    int cLED = (int) floor((dir/360.0)*NUM_LEDS); // Center LED that points to direction most accurately
+    int spread =log10f(1000/dist); // Larger distance = Less LEDs
+    int sLED = (cLED - spread) % NUM_LEDS; // Start LED for changing a group of leds
+
+    int range = (spread*2)+1;
+    int j;
+    // Directional lights
+    for(int i = 0; i <= range; i++) {
+        j = (i+sLED)%NUM_LEDS;
+        leds[j] = CRGB::Red;
+    }
+    // Neutral lights
+    for (int i = 0; i < NUM_LEDS - range; i++) {
+        // Serial.println(i);
+        leds[(j++)%NUM_LEDS] = CRGB::Blue;
+    }     
+    FastLED.show();
+    FastLED.delay(100);
+}
+
+double getDir(double lat1, double lat2, double lon1, double lon2) {
+    double radians = atan2((lon2 - lon1), (lat2 - lat1));
+    double compassReading = radians * (180/PI);
+    return compassReading;
+}
+
+double calcRelDir(double abs_dir, double board_dir) {
+    return abs_dir - board_dir;
 }
