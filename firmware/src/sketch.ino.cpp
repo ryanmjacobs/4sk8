@@ -1,3 +1,6 @@
+# 1 "/tmp/tmpmnKiZm"
+#include <Arduino.h>
+# 1 "/home/ryan/4sk8/firmware/src/sketch.ino"
 #include <ESP8266WiFi.h>
 #include <WiFiClientSecure.h>
 
@@ -18,10 +21,18 @@ SoftwareSerial ss(3, 4);
 const char *ssid = "Triangle";
 const char *pass = "brothersdeltat";
 const char *host = "192.168.0.184";
-const int   port = 4848;
+const int port = 4848;
 
 double lat, lon;
-
+void setup();
+void get_coords();
+void loop();
+static void smartdelay(unsigned long ms);
+String getValue(String data, char separator, int index);
+void updateLEDs(double dir, double dist);
+double getDir(double lat1, double lat2, double lon1, double lon2);
+double calcRelDir(double abs_dir, double board_dir);
+#line 25 "/home/ryan/4sk8/firmware/src/sketch.ino"
 void setup() {
     FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
     leds[3] = CRGB::Blue;
@@ -49,19 +60,19 @@ void setup() {
 void get_coords() {
     Serial.print("connecting to ");
     Serial.println(host);
-    
-    // Use WiFiClient class to create TCP connections
+
+
     WiFiClient client;
     if (!client.connect(host, port)) {
       Serial.println("connection failed");
       return;
     }
-    
+
     String url = "/aquery";
     Serial.print("Requesting URL: ");
     Serial.println(url);
-    
-    // This will send the request to the server
+
+
     client.print(String("GET ") + url + " HTTP/1.1\r\n" +
                  "Host: " + host + "\r\n" +
                  "Connection: close\r\n\r\n");
@@ -73,8 +84,8 @@ void get_coords() {
         return;
       }
     }
-    
-    // Read all the lines of the reply from server and print them to Serial
+
+
     while (client.available()) {
       String line = client.readStringUntil('\r');
       Serial.print("pre,");
@@ -89,24 +100,24 @@ void get_coords() {
       Serial.println(lat, 10000);
       Serial.println(lon, 10000);
     }
-    
+
     Serial.println();
     Serial.println("closing connection");
 }
 
 double dir = 0;
-double offset = 245; // LED 0 is not at front of skateboard
+double offset = 245;
 
 void loop() {
   float flat, flon;
   unsigned long age;
-  
+
   gps.f_get_position(&flat, &flon, &age);
   Serial.println(flat);
   Serial.println(flon);
 
   if (flat == 1000) {
-      // loading
+
       updateLEDs(dir+offset,100);
       dir+=10;
   } else {
@@ -122,7 +133,7 @@ void loop() {
 static void smartdelay(unsigned long ms)
 {
   unsigned long start = millis();
-  do 
+  do
   {
     while (ss.available())
       gps.encode(ss.read());
@@ -146,24 +157,24 @@ String getValue(String data, char separator, int index)
 }
 
 void updateLEDs(double dir, double dist) {
-    // 0th LED is is front of skateboard
-    dir = (dir >=0 && dir <= 360) ? dir : ((int) dir) % 360; // make sure dir is in range [0,360]
-    int cLED = (int) floor((dir/360.0)*NUM_LEDS); // Center LED that points to direction most accurately
-    int spread =log10f(1000/dist); // Larger distance = Less LEDs
-    int sLED = (cLED - spread) % NUM_LEDS; // Start LED for changing a group of leds
+
+    dir = (dir >=0 && dir <= 360) ? dir : ((int) dir) % 360;
+    int cLED = (int) floor((dir/360.0)*NUM_LEDS);
+    int spread =log10f(1000/dist);
+    int sLED = (cLED - spread) % NUM_LEDS;
 
     int range = (spread*2)+1;
     int j;
-    // Directional lights
+
     for(int i = 0; i <= range; i++) {
         j = (i+sLED)%NUM_LEDS;
         leds[j] = CRGB::Red;
     }
-    // Neutral lights
+
     for (int i = 0; i < NUM_LEDS - range; i++) {
-        // Serial.println(i);
+
         leds[(j++)%NUM_LEDS] = CRGB::Blue;
-    }     
+    }
     FastLED.show();
     FastLED.delay(100);
 }
