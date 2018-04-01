@@ -16,19 +16,22 @@ void setup() {
 }
 
 void loop() {
-    int dir = 0;
+    double lat1 = 33.4;
+    double lat2 = 34.4;
+    double lon1 = 118.27;
+    double lon2 = 118.27;
+    double dir = getDir(lat1,lat2,lon1,lon2);
     while(true) {
         updateLEDs(dir, 100);
-        dir+=10;
     }
 }
 
 // Calculates which LEDs should light up differently
-void updateLEDs(int dir, double dist) {
+void updateLEDs(double dir, double dist) {
     // 0 is is front of skateboard, goes CCW (can be changed depending on how lights are set up)
 
-    dir = (dir >=0 && dir <= 360) ? dir : dir % 360; // make sure dir is in range [0,360]
-    int cLED = floor((dir/360.0)*NUM_LEDS); // LED pointing towards destination most accurately
+    dir = (dir >=0 && dir <= 360) ? dir : ((int) dir) % 360; // make sure dir is in range [0,360]
+    int cLED = (int) floor((dir/360.0)*NUM_LEDS); // LED pointing towards destination most accurately
     int spread =log10f(1000/dist); // Larger distance = Less LEDs
     int sLED = (cLED - spread) % NUM_LEDS; // start LED for array
 
@@ -47,4 +50,10 @@ void updateLEDs(int dir, double dist) {
         FastLED.show();
     }    
     FastLED.delay(250);
+}
+
+double getDir(double lat1, double lat2, double lon1, double lon2) {
+    double radians = atan2((lon2 - lon1), (lat2 - lat1));
+    double compassReading = radians * (180/PI);
+    return compassReading;
 }
