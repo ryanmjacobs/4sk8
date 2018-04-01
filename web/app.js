@@ -7,27 +7,28 @@ const app = new Koa();
 app.use(bodyParser());
 
 
-// foursquare API
+// foursquare API call
 const request = require('request');
 
-request({
-    url: 'https://api.foursquare.com/v2/venues/explore',
+request ({
+    url: 'https://api.foursquare.com/v2/venues/VENUE_ID',
     method: 'GET',
     qs: {
 	client_id: 'HODCT5S5JUALANRPIPQSM1JNF5IVWEADHOH1SP04M40OAHLD',
 	client_secret: 'ZSIN13M2K2MUI3CDDLIRNKQQIWJDGC4Y0SV3Z4N5IMY2XM35',
-	ll: '40.7243,-74.0018',
-	query: 'coffee',
-	v: '20180323',
-	limit: 1
+	VENUE_ID: "Starbucks", // intended location; given by user
+	v: 20180323
     }
 }, function (err,res,body) {
     if(err) {
 	console.error(err);
     } else {
-	console.log(body);
+	console.log(JSON.parse(body));
     }
 });
+
+
+
 
 app.use(async (ctx, next) => {
     console.log(ctx.method, ctx.url);
