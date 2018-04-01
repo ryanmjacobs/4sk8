@@ -56,13 +56,17 @@ app.use(async ctx => {
     const items = await get_venues(p.lat, p.lon, p.query);
     const venue = items[0].venue;
 
-    ctx.body = items.map(e => {
-        return {
-          name: e.venue.name,
-          open: e.venue.hours ? e.venue.hours.isOpen : "unknown",
-          lat: e.venue.location.lat,
-          lon: e.venue.location.lng}
-    });
+    if (ctx.request.method == "GET") {
+        ctx.body = items.map(e => {
+            return {
+              name: e.venue.name,
+              open: e.venue.hours ? e.venue.hours.isOpen : "unknown",
+              lat: e.venue.location.lat,
+              lon: e.venue.location.lng}
+        });
+    } else if (ctx.request.method == "POST") {
+        ctx.body = "response";
+    }
 });
 
 app.listen(4848, function() {
