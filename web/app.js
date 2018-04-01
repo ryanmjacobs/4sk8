@@ -50,6 +50,7 @@ app.use(async (ctx, next) => {
     const p = ctx.request.body;
     console.log(ctx.request);
     const req = ctx.request.method + ctx.url;
+    
     if (ctx.path.startsWith("/query/")) {
 	p.query = p.query || ctx.path.split("/")[2];
 	console.log(p);

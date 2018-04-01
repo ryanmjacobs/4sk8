@@ -37,9 +37,9 @@ h1.query {
 div.inputSpot {
     text-align: center;
 }
-footer
-{
-    text-decoration-color: white;
-    background-color: black;
+
+div.data {
     text-align: center;
+    font-size: medium;
+    padding-bottom: 35px;
 }
