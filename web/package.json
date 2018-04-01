@@ -12,6 +12,7 @@
     "dotenv": "^5.0.1",
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",
+    "koa-static": "^4.0.2",
     "request": "^2.85.0"
   }
 }
