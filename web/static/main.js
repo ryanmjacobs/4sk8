@@ -4,9 +4,8 @@ submit.onclick = function() {
     const query = document.getElementById("query").value;
     console.log(query);
 
-    fetch("http://localhost:4848/get", {
+    fetch("http://localhost:4848/query/" + query, {
         method: "POST",
-        body: JSON.stringify({query})
     })
       .then(res => res.text())
       .then(text => {
@@ -14,6 +13,6 @@ submit.onclick = function() {
           console.log(venues);
 
           const div = document.getElementById("data");
-          div.innerHTML = "You are going to...." + venues[0].name;
+          div.innerHTML = "You are going to...." + venues.name;
       });
 }

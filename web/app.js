@@ -48,9 +48,12 @@ app.use(async (ctx, next) => {
 
 app.use(async (ctx, next) => {
     const p = ctx.request.body;
+    console.log(ctx.request);
     const req = ctx.request.method + ctx.url;
-
-    if (ctx.path != "/get") {
+    if (ctx.path.startsWith("/query/")) {
+	p.query = p.query || ctx.path.split("/")[2];
+	console.log(p);
+    } else {
         console.log(ctx.path);
         await send(ctx, "/static" + ctx.path);
         return;
@@ -69,6 +72,7 @@ app.use(async (ctx, next) => {
           lat: e.venue.location.lat,
           lon: e.venue.location.lng}
     });
+    ctx.body = ctx.body[0];
 });
 
 app.listen(4848, function() {

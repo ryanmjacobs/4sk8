@@ -34,16 +34,9 @@ h1.query {
     text-align: center;
 }
 
-form {
+div.inputSpot {
     text-align: center;
 }
-
-
-p
-{
-    margin:auto;
-}
-
 footer
 {
     text-decoration-color: white;
