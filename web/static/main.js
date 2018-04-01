@@ -27,8 +27,6 @@ submit.onclick = function() {
           const venues = JSON.parse(text);
           console.log(venues);
 
-
-
           const div = document.getElementById("data");
 	  if (venues == null) {
 	      div.innerHTML = "All those places are closed at the moment. :(";
@@ -36,8 +34,4 @@ submit.onclick = function() {
 	  else
 	      div.innerHTML = "Let's go to " + venues.name + "! :D";
       });
-}
-
-function log(msg) {
-    document.getElementById("log").innerHTML += "\n" + msg;
 }
