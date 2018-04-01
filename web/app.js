@@ -6,6 +6,29 @@ const bodyParser = require("koa-bodyparser");
 const app = new Koa();
 app.use(bodyParser());
 
+
+// foursquare API
+const request = require('request');
+
+request({
+    url: 'https://api.foursquare.com/v2/venues/explore',
+    method: 'GET',
+    qs: {
+	client_id: 'HODCT5S5JUALANRPIPQSM1JNF5IVWEADHOH1SP04M40OAHLD',
+	client_secret: 'ZSIN13M2K2MUI3CDDLIRNKQQIWJDGC4Y0SV3Z4N5IMY2XM35',
+	ll: '40.7243,-74.0018',
+	query: 'coffee',
+	v: '20180323',
+	limit: 1
+    }
+}, function (err,res,body) {
+    if(err) {
+	console.error(err);
+    } else {
+	console.log(body);
+    }
+});
+
 app.use(async (ctx, next) => {
     console.log(ctx.method, ctx.url);
     await next();
@@ -14,7 +37,8 @@ app.use(async (ctx, next) => {
 app.use(async ctx => {
     const p = ctx.request.body;
     const req = ctx.request.method + ctx.url;
-    
+
+    console.log(p)
     console.log(p.lat, p.lon);
 
     ctx.body = {};
