@@ -16,8 +16,9 @@ void setup() {
 
 void loop() {
     double dir = 0;
+    double offset = 245; // LED 0 is not at front of skateboard
     while(true) {
-        updateLEDs(dir,100);
+        updateLEDs(dir+offset,100);
         dir+=10;
     }
 }
