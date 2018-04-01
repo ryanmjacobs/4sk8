@@ -2,10 +2,10 @@
 
 // webserver
 const Koa = require("koa");
+const send = require("koa-send");
 const bodyParser = require("koa-bodyparser");
 const app = new Koa();
 app.use(bodyParser());
-
 
 // foursquare API call
 const request = require('request');
@@ -46,15 +46,27 @@ app.use(async (ctx, next) => {
     await next();
 });
 
-app.use(async ctx => {
+app.use(async (ctx, next) => {
     const p = ctx.request.body;
+    console.log(ctx.request);
     const req = ctx.request.method + ctx.url;
+    
+    if (ctx.path.startsWith("/query/")) {
+	p.query = p.query || ctx.path.split("/")[2];
+	console.log(p);
+    } else {
+        console.log(ctx.path);
+        await send(ctx, "/static" + ctx.path);
+        return;
+    }
 
     console.log(p)
     console.log(p.lat, p.lon);
 
     const items = await get_venues(p.lat, p.lon, p.query);
-    const venue = items[0].venue;
+    let randI = Math.floor(Math.random());
+    
+    const venue = items[randI].venue;
 
     ctx.body = items.map(e => {
         return {
@@ -63,6 +75,16 @@ app.use(async ctx => {
           lat: e.venue.location.lat,
           lon: e.venue.location.lng}
     });
+
+    ctx.body = ctx.body.filter(e => e.open === true);
+    let len = ctx.body.length;
+    randI = Math.floor(Math.random()*len);
+
+    if(len == 0){
+	ctx.body = "null";
+    }
+    else
+	ctx.body = ctx.body[randI];
 });
 
 app.listen(4848, function() {

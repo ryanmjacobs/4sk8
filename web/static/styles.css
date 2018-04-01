@@ -1,0 +1,45 @@
+* {
+  font-family: 'Raleway', sans-serif;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+	/* Layout declrations */
+	padding: 125px 0;
+	/* Appearance declrations */
+	background-image: url('https://i1.wp.com/hdwallpapers.cc/wp-content/uploads/wallpapers/1188/Street-Ramen-WP.jpg?fit=2560%2C1440&ssl=1');
+	background-repeat: no-repeat;
+	background-size: cover;
+	/*border-top: solid 16px #423f4f;*/
+}
+
+h1.greeting {
+  /* Layout declarations */
+  text-align: center;
+  /* Appearance declarations */
+  color: white;
+	font-family: "Open Sans", "Helvetica Neue", sans-serif;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 96px;
+	letter-spacing: 0px;
+	text-shadow: 0px 0px 8px #423f4f;
+}
+
+h1.query {
+    text-align: center;
+}
+
+div.inputSpot {
+    text-align: center;
+}
+
+div.data {
+    text-align: center;
+    font-size: medium;
+    padding-bottom: 35px;
+}
