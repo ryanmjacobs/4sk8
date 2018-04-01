@@ -13,12 +13,12 @@ CRGB leds[NUM_LEDS];
 #include "gps.h"
 
 TinyGPS gps;
-SoftwareSerial ss(3, 4);
+SoftwareSerial ss(D3, D4);
 
 const char *ssid = "Triangle";
 const char *pass = "brothersdeltat";
-const char *host = "192.168.0.184";
-const int   port = 4848;
+const char *host = "getmeramen.com";
+const int   port = 80;
 
 double lat, lon;
 
