@@ -4,6 +4,12 @@
 #include <TinyGPS.h>
 #include <SoftwareSerial.h>
 #include <ArduinoJson.h>
+#include "FastLED.h"
+
+#define DATA_PIN 5
+#define NUM_LEDS 51
+
+#include "gps.h"
 
 TinyGPS gps;
 SoftwareSerial ss(3, 4);
@@ -84,16 +90,17 @@ void get_coords() {
 }
 
 void loop() {
-  //gps_routine();
-}
-
-void gps_routine() {
   float flat, flon;
   unsigned long age;
   
   gps.f_get_position(&flat, &flon, &age);
   Serial.println(flat);
   Serial.println(flon);
+
+  double dir = direction(lat, lon, flat, flon);
+  Serial.print("direction: ");
+  Serial.println(dir);
+
   smartdelay(1000);
 }
 
