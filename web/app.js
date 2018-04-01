@@ -56,11 +56,12 @@ app.use(async ctx => {
     const items = await get_venues();
     const venue = items[0].venue;
 
-    ctx.body = {
-        name: venue.name,
-        lat: items[0].venue.location.lat,
-        lon: items[0].venue.location.lng
-    }
+    ctx.body = items.map(e => {
+        return {
+          name: e.venue.name,
+          lat: e.venue.location.lat,
+          lon: e.venue.location.lng}
+    });
 });
 
 app.listen(4848, function() {
