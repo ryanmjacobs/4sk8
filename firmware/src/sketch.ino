@@ -12,6 +12,8 @@ const char *pass = "brothersdeltat";
 const char *host = "192.168.0.184";
 const int   port = 4848;
 
+double lat, lon;
+
 void setup() {
     Serial.begin(9600);
     Serial.println();
@@ -29,6 +31,7 @@ void setup() {
     Serial.println(WiFi.localIP());
 
     ss.begin(9600);
+    get_coords();
 }
 
 void get_coords() {
@@ -62,7 +65,14 @@ void get_coords() {
     // Read all the lines of the reply from server and print them to Serial
     while (client.available()) {
       String line = client.readStringUntil('\r');
+      Serial.print("pre,");
       Serial.print(line);
+
+      lat = atof(getValue(line, ',', 0).c_str());
+      lon = atof(getValue(line, ',', 1).c_str());
+
+      Serial.println(lat);
+      Serial.println(lon);
     }
     
     Serial.println();
@@ -70,7 +80,7 @@ void get_coords() {
 }
 
 void loop() {
-    gps_routine();
+  //gps_routine();
 }
 
 void gps_routine() {
@@ -91,4 +101,20 @@ static void smartdelay(unsigned long ms)
     while (ss.available())
       gps.encode(ss.read());
   } while (millis() - start < ms);
+}
+
+String getValue(String data, char separator, int index)
+{
+    int found = 0;
+    int strIndex[] = { 0, -1 };
+    int maxIndex = data.length() - 1;
+
+    for (int i = 0; i <= maxIndex && found <= index; i++) {
+        if (data.charAt(i) == separator || i == maxIndex) {
+            found++;
+            strIndex[0] = strIndex[1] + 1;
+            strIndex[1] = (i == maxIndex) ? i+1 : i;
+        }
+    }
+    return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
 }
