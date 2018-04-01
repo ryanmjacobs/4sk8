@@ -6,7 +6,7 @@
 #include <ArduinoJson.h>
 #include "FastLED.h"
 
-#define DATA_PIN 5
+#define DATA_PIN 0
 #define NUM_LEDS 51
 CRGB leds[NUM_LEDS];
 
@@ -24,6 +24,8 @@ double lat, lon;
 
 void setup() {
     FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
+    leds[3] = CRGB::Blue;
+    FastLED.show();
 
     Serial.begin(9600);
     Serial.println();
