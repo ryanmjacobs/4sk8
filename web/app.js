@@ -2,10 +2,10 @@
 
 // webserver
 const Koa = require("koa");
+const send = require("koa-send");
 const bodyParser = require("koa-bodyparser");
 const app = new Koa();
 app.use(bodyParser());
-
 
 // foursquare API call
 const request = require('request');
@@ -46,9 +46,15 @@ app.use(async (ctx, next) => {
     await next();
 });
 
-app.use(async ctx => {
+app.use(async (ctx, next) => {
     const p = ctx.request.body;
     const req = ctx.request.method + ctx.url;
+
+    if (ctx.path != "/get") {
+        console.log(ctx.path);
+        await send(ctx, "/static" + ctx.path);
+        return;
+    }
 
     console.log(p)
     console.log(p.lat, p.lon);
