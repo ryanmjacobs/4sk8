@@ -2,6 +2,11 @@
   font-family: 'Raleway', sans-serif;
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
 header {
 	/* Layout declrations */
 	padding: 125px 0;
