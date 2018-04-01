@@ -85,7 +85,7 @@ app.use(async (ctx, next) => {
           lon: e.venue.location.lng}
     });
 
-    /*
+    
     ctx.body = ctx.body.filter(e => e.open === true);
     let len = ctx.body.length;
     randI = Math.floor(Math.random()*len);
@@ -93,7 +93,7 @@ app.use(async (ctx, next) => {
     if(len == 0){
 	ctx.body = "null";
     }
-    else*/
+    else
 	ctx.body = ctx.body[randI];
     plat = ctx.body.lat;
     plon = ctx.body.lon;

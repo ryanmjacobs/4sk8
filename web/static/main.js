@@ -31,7 +31,9 @@ submit.onclick = function() {
 	  if (venues == null) {
 	      div.innerHTML = "All those places are closed at the moment. :(";
 	  }
-	  else
+	  else if (query == "ramen" || query == "Ramen")
 	      div.innerHTML = "Let's go to " + venues.name + "! :D";
+	  else
+	      div.innerHTML = "I guess you can go to " + venues.name + ". :/";
       });
 }

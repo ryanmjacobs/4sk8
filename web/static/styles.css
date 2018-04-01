@@ -8,13 +8,14 @@ html, body {
 }
 
 header {
-	/* Layout declrations */
-	padding: 125px 0;
-	/* Appearance declrations */
-	background-image: url('https://i1.wp.com/hdwallpapers.cc/wp-content/uploads/wallpapers/1188/Street-Ramen-WP.jpg?fit=2560%2C1440&ssl=1');
-	background-repeat: no-repeat;
-	background-size: contain;
-	/*border-top: solid 16px #423f4f;*/
+    /* Layout declrations */
+    padding: 125px 0;
+    /* Appearance declrations */
+    background-image: url('https://i1.wp.com/hdwallpapers.cc/wp-content/uploads/wallpapers/1188/Street-Ramen-WP.jpg?fit=2560%2C1440&ssl=1');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    /*border-top: solid 16px #423f4f;*/
 }
 
 h1.greeting {
