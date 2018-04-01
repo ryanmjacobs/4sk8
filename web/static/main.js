@@ -19,13 +19,15 @@ submit.onclick = function() {
     const query = document.getElementById("query").value;
     console.log(query);
 
-    fetch("http://localhost:4848/query/" + query, {
+    fetch("http://" + window.location.host + "/query/" + query, {
         method: "POST",
     })
       .then(res => res.text())
       .then(text => {
           const venues = JSON.parse(text);
           console.log(venues);
+
+
 
           const div = document.getElementById("data");
 	  if (venues == null) {
@@ -34,4 +36,8 @@ submit.onclick = function() {
 	  else
 	      div.innerHTML = "Let's go to " + venues.name + "! :D";
       });
+}
+
+function log(msg) {
+    document.getElementById("log").innerHTML += "\n" + msg;
 }

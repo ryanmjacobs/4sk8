@@ -13,7 +13,7 @@ header {
 	/* Appearance declrations */
 	background-image: url('https://i1.wp.com/hdwallpapers.cc/wp-content/uploads/wallpapers/1188/Street-Ramen-WP.jpg?fit=2560%2C1440&ssl=1');
 	background-repeat: no-repeat;
-	background-size: cover;
+	background-size: contain;
 	/*border-top: solid 16px #423f4f;*/
 }
 
@@ -36,6 +36,7 @@ h1.query {
 
 div.inputSpot {
     text-align: center;
+    max-width: 100%;
 }
 
 div.data {
