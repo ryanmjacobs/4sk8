@@ -15,9 +15,16 @@ app.use(async ctx => {
     const p = ctx.request.body;
     const req = ctx.request.method + ctx.url;
     
-    ctx.body = {
-        hello: "world"
-    };
+    console.log(p.lat, p.lon);
+
+    ctx.body = {};
+    ctx.body.example = "yup";
+    ctx.body.goalLat = 123123.123123;
+
+    if (p.lon == 4)
+        ctx.body.goalLon = 7777;
+    else
+        ctx.body.goalLon = 0;
 });
 
 app.listen(4848, function() {
