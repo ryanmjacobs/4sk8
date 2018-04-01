@@ -29,9 +29,9 @@ submit.onclick = function() {
 
           const div = document.getElementById("data");
 	  if (venues == null) {
-	      div.innerHTML = "All places in that criteria are closed at the moment.";
+	      div.innerHTML = "All those places are closed at the moment. :(";
 	  }
 	  else
-	      div.innerHTML = "You are going to " + venues.name + "!";
+	      div.innerHTML = "Let's go to " + venues.name + "! :D";
       });
 }
