@@ -1,0 +1,15 @@
+{
+  "name": "web",
+  "version": "0.0.1",
+  "description": "4sk8 webserver",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ryan Jacobs <ryan.mjacobs@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.5.0",
+    "koa-bodyparser": "^4.2.0"
+  }
+}
