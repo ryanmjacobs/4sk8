@@ -6,7 +6,7 @@
 #include <ArduinoJson.h>
 #include "FastLED.h"
 
-#define DATA_PIN 0
+#define DATA_PIN D5
 #define NUM_LEDS 51
 CRGB leds[NUM_LEDS];
 
