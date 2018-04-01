@@ -28,6 +28,10 @@ submit.onclick = function() {
           console.log(venues);
 
           const div = document.getElementById("data");
-          div.innerHTML = "You are going to...." + venues.name;
+	  if (venues == null) {
+	      div.innerHTML = "All places in that criteria are closed at the moment.";
+	  }
+	  else
+	      div.innerHTML = "You are going to " + venues.name + "!";
       });
 }

@@ -64,7 +64,9 @@ app.use(async (ctx, next) => {
     console.log(p.lat, p.lon);
 
     const items = await get_venues(p.lat, p.lon, p.query);
-    const venue = items[0].venue;
+    let randI = Math.floor(Math.random());
+    
+    const venue = items[randI].venue;
 
     ctx.body = items.map(e => {
         return {
@@ -73,7 +75,16 @@ app.use(async (ctx, next) => {
           lat: e.venue.location.lat,
           lon: e.venue.location.lng}
     });
-    ctx.body = ctx.body[0];
+
+    ctx.body = ctx.body.filter(e => e.open === true);
+    let len = ctx.body.length;
+    randI = Math.floor(Math.random()*len);
+
+    if(len == 0){
+	ctx.body = "null";
+    }
+    else
+	ctx.body = ctx.body[randI];
 });
 
 app.listen(4848, function() {
