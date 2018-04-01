@@ -8,7 +8,7 @@
 */
 
 TinyGPS gps;
-SoftwareSerial ss(3, 4);
+SoftwareSerial ss(4, 3);
 
 static void smartdelay(unsigned long ms);
 static void print_float(float val, float invalid, int len, int prec);
@@ -27,7 +27,7 @@ void setup()
   Serial.println("          (deg)     (deg)      Age                      Age  (m)    --- from GPS ----  ---- to London  ----  RX    RX        Fail");
   Serial.println("-------------------------------------------------------------------------------------------------------------------------------------");
 
-  ss.begin(9600);
+  ss.begin(4800);
 }
 
 void loop()
