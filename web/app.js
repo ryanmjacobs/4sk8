@@ -32,10 +32,15 @@ function get_venues(lat, lon, query) {
                 console.error(err);
                 reject(err);
             } else {
-                const result = JSON.parse(body);
-              //console.log(result);
-              //console.log(JSON.stringify(result.response.groups[0].items, null, 2));
-                resolve(result.response.groups[0].items);
+                try {
+                    const result = JSON.parse(body);
+                    console.log(result);
+                    //console.log(result);
+                    //console.log(JSON.stringify(result.response.groups[0].items, null, 2));
+                    resolve(result.response.groups[0].items);
+                } catch (e) {
+                    resolve("unable to parse json");
+                }
             }
         });
     });
