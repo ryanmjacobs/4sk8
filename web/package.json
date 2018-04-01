@@ -9,6 +9,7 @@
   "author": "Ryan Jacobs <ryan.mjacobs@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^5.0.1",
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",
     "request": "^2.85.0"
