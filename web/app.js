@@ -59,6 +59,7 @@ app.use(async ctx => {
     ctx.body = items.map(e => {
         return {
           name: e.venue.name,
+          open: e.venue.hours ? e.venue.hours.isOpen : "unknown",
           lat: e.venue.location.lat,
           lon: e.venue.location.lng}
     });
