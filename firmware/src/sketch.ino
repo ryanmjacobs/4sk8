@@ -3,6 +3,7 @@
 
 #include <TinyGPS.h>
 #include <SoftwareSerial.h>
+#include <ArduinoJson.h>
 
 TinyGPS gps;
 SoftwareSerial ss(3, 4);
@@ -68,11 +69,14 @@ void get_coords() {
       Serial.print("pre,");
       Serial.print(line);
 
-      lat = atof(getValue(line, ',', 0).c_str());
-      lon = atof(getValue(line, ',', 1).c_str());
+      StaticJsonBuffer<200> buf;
+      JsonObject& root = buf.parseObject(line);
 
-      Serial.println(lat);
-      Serial.println(lon);
+      lat = root["lat"];
+      lon = root["lon"];
+
+      Serial.println(lat, 10000);
+      Serial.println(lon, 10000);
     }
     
     Serial.println();

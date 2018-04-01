@@ -56,7 +56,10 @@ app.use(async (ctx, next) => {
         p.query = p.query || ctx.path.split("/")[2];
         console.log(p);
     } else if (ctx.path == "/aquery") {
-        ctx.body = `${plat},${plon}`;
+        ctx.body = {
+            lat: plat,
+            lon: plon
+        };
         return;
     } else {
         console.log(ctx.path);
