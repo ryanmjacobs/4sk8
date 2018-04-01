@@ -19,7 +19,7 @@ submit.onclick = function() {
     const query = document.getElementById("query").value;
     console.log(query);
 
-    fetch("http://localhost:4848/query/" + query, {
+    fetch("http://" + window.location.host + "/query/" + query, {
         method: "POST",
     })
       .then(res => res.text())
