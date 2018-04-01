@@ -11,19 +11,24 @@ app.use(bodyParser());
 const request = require('request');
 
 request ({
-    url: 'https://api.foursquare.com/v2/venues/VENUE_ID',
+    url: 'https://api.foursquare.com/v2/venues/explore',
     method: 'GET',
     qs: {
 	client_id: 'HODCT5S5JUALANRPIPQSM1JNF5IVWEADHOH1SP04M40OAHLD',
 	client_secret: 'ZSIN13M2K2MUI3CDDLIRNKQQIWJDGC4Y0SV3Z4N5IMY2XM35',
-	VENUE_ID: "Starbucks", // intended location; given by user
-	v: 20180323
+	ll: '34.0678,-118.4507', // user location; given by skateboard or website
+	radius: 2000, // radius of area around user location
+	query: 'ramen', // unless provided the app looks for a ramen joint
+	v: '20180323', // version number
+	limit: 5
     }
 }, function (err,res,body) {
     if(err) {
 	console.error(err);
     } else {
-	console.log(JSON.parse(body));
+	const result = JSON.parse(body);
+	console.log(result);
+	console.log(JSON.stringify(result.response.groups[0].items, null, 2));
     }
 });
 
