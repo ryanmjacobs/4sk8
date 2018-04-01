@@ -46,16 +46,22 @@ app.use(async (ctx, next) => {
     await next();
 });
 
+let plat=-1, plon=-1;
 app.use(async (ctx, next) => {
     const p = ctx.request.body;
     console.log(ctx.request);
     const req = ctx.request.method + ctx.url;
     
     if (ctx.path.startsWith("/query/")) {
-	p.query = p.query || ctx.path.split("/")[2];
-	console.log(p);
+        p.query = p.query || ctx.path.split("/")[2];
+        console.log(p);
+    } else if (ctx.path == "/aquery") {
+        ctx.body = `${plat},${plon}`;
+        return;
     } else {
         console.log(ctx.path);
+        if (ctx.path == "/")
+            ctx.path = "/index.html";
         await send(ctx, "/static" + ctx.path);
         return;
     }
@@ -86,6 +92,8 @@ app.use(async (ctx, next) => {
     }
     else*/
 	ctx.body = ctx.body[randI];
+    plat = ctx.body.lat;
+    plon = ctx.body.lon;
 });
 
 app.listen(4848, function() {
