@@ -1,7 +1,6 @@
 # 4sk8
 
 ## Features
-- 36 hours to build
 - Foursquare integration
 - GPS
 - IoT Wifi / Twilio SMS+Data
