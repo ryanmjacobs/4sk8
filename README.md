@@ -1,7 +1,22 @@
 # 4sk8
 
+## Introduction
+Within a 24 hour timeframe, our team augmented a skateboard with hardware peripherals that guide
+the rider to a destination. We integrated the FourSquare API to retrieve our end goal, and used
+real-time GPS data to calculate the user's necessary direction. The direction is converted to
+a lightstrip pattern for the user's discretion.
+
+## Usage
+1. User turns on skateboard hardware using a slider switch.
+2. User opens our app on their phone.
+3. User enters a location query (e.g. Ramen, In-and-Out, Target, etc.)
+    - A request to the FourSquare API fetches the nearest location that fits the input query.
+4. Skateboard lights up, with a compass underglow.
+5. As the user rides, the compass continually adjusts in real-time to direct the user to their
+   chosen location.
+
 ## Features
-- Foursquare integration
+- FourSquare integration
 - GPS
 - IoT Wifi / Twilio SMS+Data
 - Oh yeah, and it lights up
