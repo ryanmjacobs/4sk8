@@ -6,6 +6,8 @@ the rider to a destination. We integrated the FourSquare API to retrieve our end
 real-time GPS data to calculate the user's necessary direction. The direction is converted to
 a lightstrip pattern for the user's discretion.
 
+Our board utilizes Twilio Programmable Wireless for data connectivity.
+
 ## Usage
 1. User turns on skateboard hardware using a slider switch.
 2. User opens our app on their phone.
@@ -22,8 +24,8 @@ a lightstrip pattern for the user's discretion.
 - Oh yeah, and it lights up
 
 ### Stack
+- C++
 - Node.js
-- Arduino .ino
 - Vanilla HTML/CSS/JS
 
 &copy; 2018 Ryan Jacobs, Chi Wong, David James, Srivishnu Ramamurthi, and Alex Chen
